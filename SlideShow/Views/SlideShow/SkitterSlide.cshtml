@@ -1,0 +1,40 @@
+﻿@{
+    //Layout = null;   
+}
+
+
+
+  <!-- Skitter Styles -->
+  <link href="~/Content/skitter.styles.min.css" type="text/css" media="all" rel="stylesheet" />
+
+
+
+
+
+
+
+<div id="content" style="margin:0;padding:0">
+    <div class="border_box" style="margin:0;padding:0">
+        <div class="box_skitter box_skitter_large" style="margin:0;padding:0;height:800px;width:800px">
+            <ul>
+                <li><a href="#cube"><img src="../N/041.png" class="cube" /></a><div class="label_text"><p>cube</p></div></li>
+                <li><a href="#cubeRandom"><img src="../N/Koala.jpg" class="cubeRandom" /></a><div class="label_text"><p>cubeRandom</p></div></li>
+                <li><a href="#block"><img src="../N/Koala.jpg" class="block" /></a><div class="label_text"><p>block</p></div></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts 
+{
+@Scripts.Render("~/bundles/skitter")
+    <!-- Init Skitter -->
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('.box_skitter_large').skitter({ fullscreen: false });
+    });
+</script>
+
+}
+
+

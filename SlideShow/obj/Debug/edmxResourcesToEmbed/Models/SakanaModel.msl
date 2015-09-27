@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SakanaDBModelStoreContainer" CdmEntityContainer="SakanaDBEntities1">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="SakanaDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ANSWER_HIST">
+      <EntityTypeMapping TypeName="SakanaDBModel.ANSWER_HIST">
+        <MappingFragment StoreEntitySet="ANSWER_HIST">
+          <ScalarProperty Name="FIRST_ANSWER_FLG" ColumnName="FIRST_ANSWER_FLG" />
+          <ScalarProperty Name="SCORE" ColumnName="SCORE" />
+          <ScalarProperty Name="ANSWER_DT" ColumnName="ANSWER_DT" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="QUIZ_ID" ColumnName="QUIZ_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CATEGORY">
+      <EntityTypeMapping TypeName="SakanaDBModel.CATEGORY">
+        <MappingFragment StoreEntitySet="CATEGORY">
+          <ScalarProperty Name="DELETE_FLG" ColumnName="DELETE_FLG" />
+          <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+          <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PICT">
+      <EntityTypeMapping TypeName="SakanaDBModel.PICT">
+        <MappingFragment StoreEntitySet="PICT">
+          <ScalarProperty Name="DELETE_FLG" ColumnName="DELETE_FLG" />
+          <ScalarProperty Name="EDIT_DT" ColumnName="EDIT_DT" />
+          <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="PICT_TITLE" ColumnName="PICT_TITLE" />
+          <ScalarProperty Name="PICT_PATH" ColumnName="PICT_PATH" />
+          <ScalarProperty Name="PICT_ID" ColumnName="PICT_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUIZ_PICT">
+      <EntityTypeMapping TypeName="SakanaDBModel.QUIZ_PICT">
+        <MappingFragment StoreEntitySet="QUIZ_PICT">
+          <ScalarProperty Name="DELETE_FLG" ColumnName="DELETE_FLG" />
+          <ScalarProperty Name="HINT_TXT" ColumnName="HINT_TXT" />
+          <ScalarProperty Name="PICT_ID" ColumnName="PICT_ID" />
+          <ScalarProperty Name="HINT_SEQ" ColumnName="HINT_SEQ" />
+          <ScalarProperty Name="QUIZ_ID" ColumnName="QUIZ_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="SakanaDBModel.USERS">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="DELETE_FLG" ColumnName="DELETE_FLG" />
+          <ScalarProperty Name="EDIT_DT" ColumnName="EDIT_DT" />
+          <ScalarProperty Name="CREATE_DT" ColumnName="CREATE_DT" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="MAIL" ColumnName="MAIL" />
+          <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUIZ">
+      <EntityTypeMapping TypeName="SakanaDBModel.QUIZ">
+        <MappingFragment StoreEntitySet="QUIZ">
+          <ScalarProperty Name="DELETE_FLG" ColumnName="DELETE_FLG" />
+          <ScalarProperty Name="EDITED_DT" ColumnName="EDITED_DT" />
+          <ScalarProperty Name="CREATED_DT" ColumnName="CREATED_DT" />
+          <ScalarProperty Name="ANSWER_DETAIL" ColumnName="ANSWER_DETAIL" />
+          <ScalarProperty Name="ANSWER" ColumnName="ANSWER" />
+          <ScalarProperty Name="ANSWER_HIRAGANA" ColumnName="ANSWER_HIRAGANA" />
+          <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+          <ScalarProperty Name="CLEAR_NUM" ColumnName="CLEAR_NUM" />
+          <ScalarProperty Name="CHALLENGE_NUM" ColumnName="CHALLENGE_NUM" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="QUIZ_DETAIL" ColumnName="QUIZ_DETAIL" />
+          <ScalarProperty Name="QUIZ_NAME" ColumnName="QUIZ_NAME" />
+          <ScalarProperty Name="QUIZ_ID" ColumnName="QUIZ_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

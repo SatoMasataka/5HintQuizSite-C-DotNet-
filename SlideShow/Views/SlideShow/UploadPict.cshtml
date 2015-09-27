@@ -1,0 +1,43 @@
+﻿@model SlideShow.Models.UploadPictModel
+@{
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<script>
+    $(function () {
+        $("#btnClose").on("click", function () {
+            window.close();
+            return false;
+        });
+    });
+</script>
+
+<h3>画像アップロード</h3>
+<input type="button" id="btnClose" value="閉じる"/>
+<div>
+    @using (Html.BeginForm("UploadPictPost", "SlideShow",FormMethod.Post,new {id="uploadForm" ,enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken();
+        <input type="file" name="fl" size="50" />
+        <input type="text" name="picTitle" size="50" />
+        <input type="submit" value="送信" />
+    }
+</div>
+
+<h4>今までアップした画像</h4>    
+<div id="PictList">
+    <p>@ViewBag.Msg</p>
+
+    @{
+        foreach (var a in Model.Picts)
+        {
+            @Html.Label(a.PICT_TITLE, new { id = "lblPictureTitle" + a.PICT_ID })
+
+            <img width="50" src="@a.PICT_PATH" />
+        }
+
+    }
+</div>
+

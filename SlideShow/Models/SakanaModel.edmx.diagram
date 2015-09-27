@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7d5c68fcf1ec40328bc0caf78ca3319b" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="SakanaDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SakanaDBModel.ANSWER_HIST" Width="1.5" PointX="5.25" PointY="9.125" />
+        <EntityTypeShape EntityType="SakanaDBModel.CATEGORY" Width="1.5" PointX="0.75" PointY="2" />
+        <EntityTypeShape EntityType="SakanaDBModel.PICT" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="SakanaDBModel.QUIZ_PICT" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="SakanaDBModel.USERS" Width="1.5" PointX="0.75" PointY="5.5" />
+        <AssociationConnector Association="SakanaDBModel.FK_QUIZ_PICT2" />
+        <EntityTypeShape EntityType="SakanaDBModel.QUIZ" Width="1.5" PointX="3" PointY="3.75" />
+        <AssociationConnector Association="SakanaDBModel.FK_ANSWER_HIST" />
+        <AssociationConnector Association="SakanaDBModel.FK_QUIZ2" />
+        <AssociationConnector Association="SakanaDBModel.FK_QUIZ" />
+        <AssociationConnector Association="SakanaDBModel.FK_QUIZ_PICT" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+﻿@model SlideShow.Models.ViewModel.MadeQuizListModel
+
+@Html.ActionLink("新規作成", "MakeQuiz", "SlideShow")
+<p>これまでに作成したクイズ</p>
+
+<table class="table-striped table-hover">
+    <tr>
+        <th>クイズタイトル</th>
+        <th>カテゴリ</th>
+        <th>回答数</th>
+        <th>正答率</th>
+        <th>作成日時</th>
+    <tr>
+        @foreach (var m in Model.MadeQuizList)
+        {
+        <tr>
+            <td>
+                @Html.ActionLink(m.Quiz.QUIZ_NAME, "QuizDetail", new { quizId = m.Quiz.QUIZ_ID })
+            </td>
+            <td>
+                @Html.Label(m.CategoryName)
+            </td>
+            <td>
+                @Html.Label(m.Quiz.CHALLENGE_NUM.ToString())
+            </td>
+            <td>
+                @Html.Label(m.Quiz.CHALLENGE_NUM == 0 ? "-" : (m.Quiz.CLEAR_NUM / m.Quiz.CHALLENGE_NUM * 100).ToString())
+            </td>
+            <td>
+                @Html.Label(m.Quiz.EDITED_DT.ToString("yyyy/MM/dd"))
+            </td>
+            <td>
+                @using (Html.BeginForm("GoToEdit", "SlideShow", FormMethod.Post))
+                {
+                    @Html.Hidden("QuizId", m.Quiz.QUIZ_ID)
+                    <input type="submit" value="編集" />
+                }
+            </td>
+        </tr>
+        }
+    </table>
+
+

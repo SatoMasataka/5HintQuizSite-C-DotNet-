@@ -1,0 +1,13 @@
+﻿@model SlideShow.Models.UploadPictModel
+
+@{
+    //アップロード画面の一覧表示モデルを流用
+    foreach (var a in Model.Picts)
+    {
+        @Html.RadioButtonFor(m => m.SelectedId, a.PICT_ID, new { id = "rbtPicture" + a.PICT_ID, @class = "rbtPicture" })
+        @Html.Label(a.PICT_TITLE, new { id = "lblPictureTitle" + a.PICT_ID })
+
+        <img width="50" src="@a.PICT_PATH" />
+    }
+
+}

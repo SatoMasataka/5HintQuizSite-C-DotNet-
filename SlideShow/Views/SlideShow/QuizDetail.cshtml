@@ -1,0 +1,24 @@
+﻿@model  SlideShow.Models.ViewModel.QuizData
+
+<div>
+    @Html.Label("クイズ名")
+    @Html.Label(Model.Quiz.QUIZ_NAME)
+</div>
+<div>
+    @Html.Label("クイズ説明")
+    @Html.Label(Model.Quiz.QUIZ_DETAIL)
+</div>
+<div>
+    @Html.Label("カテゴリ")
+    @Html.Label(Model.CategoryName)
+</div>
+<div>
+    @Html.Label("作った人")
+    @Html.Label(Model.UserName)
+</div>
+
+@using (Html.BeginForm("DoQuiz", "SlideShow"))
+{
+    @Html.Hidden("quizId",Model.Quiz.QUIZ_ID)
+    <input type="submit" value="このクイズをやる">
+}

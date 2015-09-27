@@ -1,0 +1,153 @@
+﻿@model SlideShow.Models.ViewModel.MakeQuizModel
+
+<h2>クイズ作成</h2>
+@Html.ActionLink("画像アップロード", "UploadPict", "SlideShow", new { target = "komado", onclick = "openwin()" })
+@using (Html.BeginForm("MakeQuiz", "SlideShow"))
+{
+    <div>
+        <!--クイズIDがある場合は編集-->
+        @Html.HiddenFor(m => m.QuizId)
+    </div>
+
+
+    <div>
+        <!--クイズのタイトル-->
+        @Html.LabelFor(m => m.QuizName)
+        @Html.TextBoxFor(m => m.QuizName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.QuizName)
+    </div>
+
+    
+    <div>
+        <!--クイズ詳細-->
+        @Html.LabelFor(m => m.QuizDetail)
+        @Html.TextBoxFor(m => m.QuizDetail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.QuizDetail)
+    </div>
+
+    
+    <div>
+        <!--カテゴリ-->
+        @Html.LabelFor(m => m.CategoryId)
+        @Html.DropDownListFor(m => m.CategoryId, Model.CategoryList)
+        @Html.ValidationMessageFor(m => m.CategoryId)
+    </div>
+    
+    <div>
+        <!--ヒント-->
+        @Html.LabelFor(m => m.HintList)
+        <table>
+            <tr>
+                <th>順番</th>
+                <th>ヒント文</th>
+                <th>ヒント画像</th>
+            </tr>
+
+            @for (int i = 0; i < 5; i++)
+            {
+                <tr>
+                    <td>@Html.Label((i+1).ToString())</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.HintList[i].HintTxt, new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.HintList[i].PictName, new { id = "lblPictName" + i ,disabled=true})
+                        @Html.HiddenFor(m => m.HintList[i].PictId, new { id = "hdnPictId"+i })
+                    </td>
+                    <td>
+                        <a href="#" onclick="showEditDialog(@i)">編集</a>
+                        @Ajax.ActionLink("xxx", "_SelectPict", new AjaxOptions { UpdateTargetId = "editDialog", OnSuccess = "showEditDialog(" + @i + ")" }) 
+
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(m => m.HintList[i].PictId)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+
+    <!--回答-->
+    <div>
+        @Html.LabelFor(m => m.Answer)
+        @Html.TextBoxFor(m => m.Answer, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Answer)
+    </div>
+
+    <!--回答(ひらがな)-->
+    <div>
+        @Html.LabelFor(m => m.AnswerHiragana)
+        @Html.TextBoxFor(m => m.AnswerHiragana, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.AnswerHiragana)
+    </div>
+
+    <!--解説-->
+    <div>
+        @Html.LabelFor(m => m.AnswerDetail)
+        @Html.TextAreaFor(m => m.AnswerDetail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.AnswerDetail)
+    </div>
+
+   <input type="submit" value="登録" />
+}
+
+<div id="editDialog" style="display:none;">
+    @Html.Action("_SelectPict")
+    @@Html.Partial("_SelectPict",Model)
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="~/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
+
+    <script type="text/javascript" language="javascript">
+
+        function openwin() {
+            window.open("", "komado", "width=500,height=400,scrollbars=yes");
+        }
+
+        function showEditDialog(i) {
+
+
+            //現在の選択値をダイアログに反映
+            var nowSelectedId = $("#hdnPictId" + i).val();
+            if (nowSelectedId != "") {
+                $("#rbtPicture" + nowSelectedId).prop("checked", true);
+            }
+            else {
+                var s = $("input[class = rbtPicture]").first().prop("checked", true);
+            }
+
+            $("#editDialog").dialog({
+                title: "画像選択",
+                width: 550,
+                height: 400,
+                modal: true,
+                buttons: {
+                    "選択": function () {
+                        //子画面選択値＝画像ID
+                        var s = $("input[class = rbtPicture]:checked").val();
+                        if (s == "") {
+                            return;
+                        }
+                        $("#hdnPictId" + i).val(s);
+
+                        //子画面のラベルから画像名取得
+                        var pictName=$("#lblPictureTitle"+s).text();
+                        $("#lblPictName" + i).val(pictName);
+                        $(this).dialog("close");
+                    }
+                },
+                close: function () {
+                    $(this).dialog("destroy");
+                }
+            });
+        }
+
+    </script>
+}
+

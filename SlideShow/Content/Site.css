@@ -1,0 +1,49 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/*メニューバー*/
+ul#navigation {
+    width:920px;
+    margin:0;
+    overflow:hidden;　/*float解除*/
+    zoom:100%;　/*float解除*/
+}
+ul#navigation li {
+    float:left; /*次の要素を右側へ回り込ませる*/
+    list-style:none; /*リストの●を消す*/
+}
+ul#navigation li a {
+    display:block; /*インラインからブロック要素へ変更*/
+    height:37px; /*高さ*/
+    width:180px; /*横幅*/
+    text-align:center; /*テキストの位置*/
+    font-weight:bold; /*テキストの太さ*/
+    color:white;
+    letter-spacing:1px; /*文字間隔*/
+    /*text-indent:-9898px; テキストを横に飛ばして見えなくする*/
+    background-image:url(../images/menu_blue.gif); /*メニュー画像*/
+    background-repeat:no-repeat; /*画像の繰り返しをオフに*/
+}

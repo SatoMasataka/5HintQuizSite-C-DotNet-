@@ -1,0 +1,123 @@
+﻿@model SlideShow.Models.ViewModel.DoQuizModel
+@{
+    Layout = null;
+    
+    
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/skitter")
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<!-- Skitter Styles -->
+<link href="~/Content/skitter.styles.min.css" type="text/css" media="all" rel="stylesheet" />
+
+
+<div id="slideContent" style="margin:0;padding:0;" class="left:200">
+    <div class="border_box" style="margin:0;padding:0">
+        <div class="box_skitter box_skitter_large" style="margin:0;padding:0">
+            <ul>
+                @foreach (var a in Model.quizHints)
+                {
+                    <li><a href="#block"><img src=@a.PictPath class="fade" /></a><div class="label_text"><p> @a.HintTxt </p></div></li>
+                    <li><a href="#block"><img src="~/images/black.png" class="fade" /></a><div class="label_text"><p> @a.HintTxt </p></div></li>
+                }
+                    <li><a href="#block"><img src="~/images/timeUp.jpg" class="fade" /></a><div class="label_text"><p> ！！！！ご解答を！！！！</p></div></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="css">
+    <input type="submit" value="分かった！" id="wakatta"/>
+</div>
+
+<div id="ansDialog" style="display:none;">
+
+    @using (Html.BeginForm("KotaeAwase", "SlideShow"))
+    {
+        @Html.TextBox("answer")
+        @Html.Hidden("quizId",Model.quizData.Quiz.QUIZ_ID)
+        <input type="submit" value="解答" id="btnAnswer"/>
+    }
+</div>
+
+
+
+<!-- Init Skitter -->
+<script type="text/javascript" language="javascript">
+    $(function () {
+        $('.box_skitter_large').css({width:1000,height:800}).skitter(
+            {
+                numbers_align: "center",
+                fullscreen: false,
+                numbers: false,
+                navigation: false,
+                interval: 5000,
+                theme: 'square',
+                stop_over: false,
+                progressbar: true,
+                preview: false,
+                once:true
+            });
+
+        $('#wakatta').on('click', showDialog);
+        $('#btnAnswer').on('click', checkHiragana);
+    });
+
+    function showDialog() {
+        //スライドショー停止
+        $('.box_skitter_large').empty();
+
+        $("#ansDialog").dialog({
+            title: "お答えは？",
+            width: 550,
+            height: 200,
+            modal: true,
+            open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); } //閉じるボタン非表示
+        });
+    }
+
+    //ひらがな入力チェック
+    function checkHiragana()
+    {
+        if( $('#answer').val().match(/[^あ-ん]/))
+        {
+            alert("解答はひらがなで入力してください");
+            return false;
+        }
+    }
+</script>
+
+<style type="text/css">
+    body {
+        background-color:black;
+    }
+
+    .ui-front {
+        z-index: 1000;
+    }
+
+ 
+    .css {
+        top: 100px;
+        right:10px;
+        position: fixed;
+        z-index: 1999;
+        width: 120px;
+        padding:10px;
+        background:#acd5d5;
+        border-radius: 5px 5px 5px 5px;
+    }
+ 
+</style>
+
+
+
+
+
+
+
+

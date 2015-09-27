@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SakanaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityContainer Name="SakanaDBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="ANSWER_HIST" EntityType="SakanaDBModel.ANSWER_HIST" />
+    <EntitySet Name="CATEGORY" EntityType="SakanaDBModel.CATEGORY" />
+    <EntitySet Name="PICT" EntityType="SakanaDBModel.PICT" />
+    <EntitySet Name="QUIZ_PICT" EntityType="SakanaDBModel.QUIZ_PICT" />
+    <EntitySet Name="USERS" EntityType="SakanaDBModel.USERS" />
+    <AssociationSet Name="FK_QUIZ_PICT2" Association="SakanaDBModel.FK_QUIZ_PICT2">
+      <End Role="PICT" EntitySet="PICT" />
+      <End Role="QUIZ_PICT" EntitySet="QUIZ_PICT" />
+    </AssociationSet>
+    <EntitySet Name="QUIZ" EntityType="SakanaDBModel.QUIZ" />
+    <AssociationSet Name="FK_ANSWER_HIST" Association="SakanaDBModel.FK_ANSWER_HIST">
+      <End Role="QUIZ" EntitySet="QUIZ" />
+      <End Role="ANSWER_HIST" EntitySet="ANSWER_HIST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUIZ2" Association="SakanaDBModel.FK_QUIZ2">
+      <End Role="CATEGORY" EntitySet="CATEGORY" />
+      <End Role="QUIZ" EntitySet="QUIZ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUIZ" Association="SakanaDBModel.FK_QUIZ">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="QUIZ" EntitySet="QUIZ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUIZ_PICT" Association="SakanaDBModel.FK_QUIZ_PICT">
+      <End Role="QUIZ" EntitySet="QUIZ" />
+      <End Role="QUIZ_PICT" EntitySet="QUIZ_PICT" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ANSWER_HIST">
+    <Key>
+      <PropertyRef Name="QUIZ_ID" />
+      <PropertyRef Name="USER_ID" />
+      <PropertyRef Name="ANSWER_DT" />
+    </Key>
+    <Property Name="QUIZ_ID" Type="Int32" Nullable="false" />
+    <Property Name="USER_ID" Type="Int32" Nullable="false" />
+    <Property Name="ANSWER_DT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SCORE" Type="Int32" />
+    <Property Name="FIRST_ANSWER_FLG" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="QUIZ" Relationship="SakanaDBModel.FK_ANSWER_HIST" FromRole="ANSWER_HIST" ToRole="QUIZ" />
+  </EntityType>
+  <EntityType Name="CATEGORY">
+    <Key>
+      <PropertyRef Name="CATEGORY_ID" />
+    </Key>
+    <Property Name="CATEGORY_ID" Type="Int32" Nullable="false" />
+    <Property Name="CATEGORY_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DELETE_FLG" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="QUIZ" Relationship="SakanaDBModel.FK_QUIZ2" FromRole="CATEGORY" ToRole="QUIZ" />
+  </EntityType>
+  <EntityType Name="PICT">
+    <Key>
+      <PropertyRef Name="PICT_ID" />
+    </Key>
+    <Property Name="PICT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PICT_PATH" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PICT_TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="USER_ID" Type="Int32" Nullable="false" />
+    <Property Name="CREATE_DT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EDIT_DT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DELETE_FLG" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="QUIZ_PICT" Relationship="SakanaDBModel.FK_QUIZ_PICT2" FromRole="PICT" ToRole="QUIZ_PICT" />
+  </EntityType>
+  <EntityType Name="QUIZ_PICT">
+    <Key>
+      <PropertyRef Name="QUIZ_ID" />
+      <PropertyRef Name="HINT_SEQ" />
+    </Key>
+    <Property Name="QUIZ_ID" Type="Int32" Nullable="false" />
+    <Property Name="HINT_SEQ" Type="Int32" Nullable="false" />
+    <Property Name="PICT_ID" Type="Int32" Nullable="false" />
+    <Property Name="HINT_TXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DELETE_FLG" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PICT" Relationship="SakanaDBModel.FK_QUIZ_PICT2" FromRole="QUIZ_PICT" ToRole="PICT" />
+    <NavigationProperty Name="QUIZ" Relationship="SakanaDBModel.FK_QUIZ_PICT" FromRole="QUIZ_PICT" ToRole="QUIZ" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USER_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MAIL" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CREATE_DT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EDIT_DT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DELETE_FLG" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="QUIZ" Relationship="SakanaDBModel.FK_QUIZ" FromRole="USERS" ToRole="QUIZ" />
+  </EntityType>
+  <Association Name="FK_QUIZ_PICT2">
+    <End Type="SakanaDBModel.PICT" Role="PICT" Multiplicity="1" />
+    <End Type="SakanaDBModel.QUIZ_PICT" Role="QUIZ_PICT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PICT">
+        <PropertyRef Name="PICT_ID" />
+      </Principal>
+      <Dependent Role="QUIZ_PICT">
+        <PropertyRef Name="PICT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="QUIZ">
+    <Key>
+      <PropertyRef Name="QUIZ_ID" />
+    </Key>
+    <Property Name="QUIZ_ID" Type="Int32" Nullable="false" />
+    <Property Name="QUIZ_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="QUIZ_DETAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="USER_ID" Type="Int32" Nullable="false" />
+    <Property Name="CHALLENGE_NUM" Type="Int32" Nullable="false" />
+    <Property Name="CLEAR_NUM" Type="Int32" Nullable="false" />
+    <Property Name="CATEGORY_ID" Type="Int32" />
+    <Property Name="ANSWER_HIRAGANA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ANSWER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ANSWER_DETAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CREATED_DT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EDITED_DT" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DELETE_FLG" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ANSWER_HIST" Relationship="SakanaDBModel.FK_ANSWER_HIST" FromRole="QUIZ" ToRole="ANSWER_HIST" />
+    <NavigationProperty Name="CATEGORY" Relationship="SakanaDBModel.FK_QUIZ2" FromRole="QUIZ" ToRole="CATEGORY" />
+    <NavigationProperty Name="USERS" Relationship="SakanaDBModel.FK_QUIZ" FromRole="QUIZ" ToRole="USERS" />
+    <NavigationProperty Name="QUIZ_PICT" Relationship="SakanaDBModel.FK_QUIZ_PICT" FromRole="QUIZ" ToRole="QUIZ_PICT" />
+  </EntityType>
+  <Association Name="FK_ANSWER_HIST">
+    <End Type="SakanaDBModel.QUIZ" Role="QUIZ" Multiplicity="1" />
+    <End Type="SakanaDBModel.ANSWER_HIST" Role="ANSWER_HIST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QUIZ">
+        <PropertyRef Name="QUIZ_ID" />
+      </Principal>
+      <Dependent Role="ANSWER_HIST">
+        <PropertyRef Name="QUIZ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUIZ2">
+    <End Type="SakanaDBModel.CATEGORY" Role="CATEGORY" Multiplicity="0..1" />
+    <End Type="SakanaDBModel.QUIZ" Role="QUIZ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORY">
+        <PropertyRef Name="CATEGORY_ID" />
+      </Principal>
+      <Dependent Role="QUIZ">
+        <PropertyRef Name="CATEGORY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUIZ">
+    <End Type="SakanaDBModel.USERS" Role="USERS" Multiplicity="1" />
+    <End Type="SakanaDBModel.QUIZ" Role="QUIZ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="QUIZ">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUIZ_PICT">
+    <End Type="SakanaDBModel.QUIZ" Role="QUIZ" Multiplicity="1" />
+    <End Type="SakanaDBModel.QUIZ_PICT" Role="QUIZ_PICT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QUIZ">
+        <PropertyRef Name="QUIZ_ID" />
+      </Principal>
+      <Dependent Role="QUIZ_PICT">
+        <PropertyRef Name="QUIZ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

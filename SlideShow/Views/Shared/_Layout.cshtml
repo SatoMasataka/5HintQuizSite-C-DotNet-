@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - マイ ASP.NET アプリケーション</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        Session["UsersId"]=1;
+        Session["UserName"]="TestUser";
+
+        string uName = (string)Session["UserName"];
+    }
+
+</head>
+<body>
+    @Html.Label("ログインユーザー : " + uName)
+    <ul id="navigation">
+        <li>@Html.ActionLink("ホーム", "UsersHome", "SlideShow")</li>
+        <li>@Html.ActionLink("クイズ作成", "MadeQuizList", "SlideShow")</li>
+    </ul>
+
+    @Html.Partial("_LoginPartial")
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - マイ ASP.NET アプリケーション</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

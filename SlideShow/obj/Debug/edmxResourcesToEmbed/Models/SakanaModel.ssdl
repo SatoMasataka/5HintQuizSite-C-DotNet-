@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SakanaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ANSWER_HIST">
+    <Key>
+      <PropertyRef Name="QUIZ_ID" />
+      <PropertyRef Name="USER_ID" />
+      <PropertyRef Name="ANSWER_DT" />
+    </Key>
+    <Property Name="QUIZ_ID" Type="int" Nullable="false" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="ANSWER_DT" Type="datetime" Nullable="false" />
+    <Property Name="SCORE" Type="int" />
+    <Property Name="FIRST_ANSWER_FLG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CATEGORY">
+    <Key>
+      <PropertyRef Name="CATEGORY_ID" />
+    </Key>
+    <Property Name="CATEGORY_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CATEGORY_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DELETE_FLG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PICT">
+    <Key>
+      <PropertyRef Name="PICT_ID" />
+    </Key>
+    <Property Name="PICT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PICT_PATH" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PICT_TITLE" Type="nvarchar" MaxLength="50" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="CREATE_DT" Type="datetime" Nullable="false" />
+    <Property Name="EDIT_DT" Type="datetime" Nullable="false" />
+    <Property Name="DELETE_FLG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QUIZ">
+    <Key>
+      <PropertyRef Name="QUIZ_ID" />
+    </Key>
+    <Property Name="QUIZ_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QUIZ_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="QUIZ_DETAIL" Type="nvarchar(max)" />
+    <Property Name="USER_ID" Type="int" Nullable="false" />
+    <Property Name="CHALLENGE_NUM" Type="int" Nullable="false" />
+    <Property Name="CLEAR_NUM" Type="int" Nullable="false" />
+    <Property Name="CATEGORY_ID" Type="int" />
+    <Property Name="ANSWER_HIRAGANA" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ANSWER" Type="nvarchar" MaxLength="50" />
+    <Property Name="ANSWER_DETAIL" Type="nvarchar(max)" />
+    <Property Name="CREATED_DT" Type="datetime" Nullable="false" />
+    <Property Name="EDITED_DT" Type="datetime" Nullable="false" />
+    <Property Name="DELETE_FLG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="QUIZ_PICT">
+    <Key>
+      <PropertyRef Name="QUIZ_ID" />
+      <PropertyRef Name="HINT_SEQ" />
+    </Key>
+    <Property Name="QUIZ_ID" Type="int" Nullable="false" />
+    <Property Name="HINT_SEQ" Type="int" Nullable="false" />
+    <Property Name="PICT_ID" Type="int" Nullable="false" />
+    <Property Name="HINT_TXT" Type="nvarchar(max)" />
+    <Property Name="DELETE_FLG" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="USER_ID" />
+    </Key>
+    <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USER_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MAIL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CREATE_DT" Type="datetime" Nullable="false" />
+    <Property Name="EDIT_DT" Type="datetime" Nullable="false" />
+    <Property Name="DELETE_FLG" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ANSWER_HIST">
+    <End Role="QUIZ" Type="Self.QUIZ" Multiplicity="1" />
+    <End Role="ANSWER_HIST" Type="Self.ANSWER_HIST" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QUIZ">
+        <PropertyRef Name="QUIZ_ID" />
+      </Principal>
+      <Dependent Role="ANSWER_HIST">
+        <PropertyRef Name="QUIZ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUIZ">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="QUIZ" Type="Self.QUIZ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="USER_ID" />
+      </Principal>
+      <Dependent Role="QUIZ">
+        <PropertyRef Name="USER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUIZ_PICT">
+    <End Role="QUIZ" Type="Self.QUIZ" Multiplicity="1" />
+    <End Role="QUIZ_PICT" Type="Self.QUIZ_PICT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="QUIZ">
+        <PropertyRef Name="QUIZ_ID" />
+      </Principal>
+      <Dependent Role="QUIZ_PICT">
+        <PropertyRef Name="QUIZ_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUIZ_PICT2">
+    <End Role="PICT" Type="Self.PICT" Multiplicity="1" />
+    <End Role="QUIZ_PICT" Type="Self.QUIZ_PICT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PICT">
+        <PropertyRef Name="PICT_ID" />
+      </Principal>
+      <Dependent Role="QUIZ_PICT">
+        <PropertyRef Name="PICT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QUIZ2">
+    <End Role="CATEGORY" Type="Self.CATEGORY" Multiplicity="0..1" />
+    <End Role="QUIZ" Type="Self.QUIZ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORY">
+        <PropertyRef Name="CATEGORY_ID" />
+      </Principal>
+      <Dependent Role="QUIZ">
+        <PropertyRef Name="CATEGORY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SakanaDBModelStoreContainer">
+    <EntitySet Name="ANSWER_HIST" EntityType="Self.ANSWER_HIST" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CATEGORY" EntityType="Self.CATEGORY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PICT" EntityType="Self.PICT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QUIZ" EntityType="Self.QUIZ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QUIZ_PICT" EntityType="Self.QUIZ_PICT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ANSWER_HIST" Association="Self.FK_ANSWER_HIST">
+      <End Role="QUIZ" EntitySet="QUIZ" />
+      <End Role="ANSWER_HIST" EntitySet="ANSWER_HIST" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUIZ" Association="Self.FK_QUIZ">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="QUIZ" EntitySet="QUIZ" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUIZ_PICT" Association="Self.FK_QUIZ_PICT">
+      <End Role="QUIZ" EntitySet="QUIZ" />
+      <End Role="QUIZ_PICT" EntitySet="QUIZ_PICT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUIZ_PICT2" Association="Self.FK_QUIZ_PICT2">
+      <End Role="PICT" EntitySet="PICT" />
+      <End Role="QUIZ_PICT" EntitySet="QUIZ_PICT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QUIZ2" Association="Self.FK_QUIZ2">
+      <End Role="CATEGORY" EntitySet="CATEGORY" />
+      <End Role="QUIZ" EntitySet="QUIZ" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
